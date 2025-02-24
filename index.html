@@ -7,6 +7,7 @@
     <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
         button { margin-top: 20px; }
+        .question { margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -24,10 +25,30 @@
                 title: "Commerce Skills Quiz",
                 questions: [
                     {
+                        section: "Mathematics",
                         question: "How comfortable are you with basic arithmetic?",
                         options: ["Not comfortable at all", "Somewhat comfortable", "Comfortable", "Very comfortable", "Extremely comfortable"]
                     },
-                    // Ajoutez plus de questions ici
+                    {
+                        section: "Mathematics",
+                        question: "How comfortable are you with spatial reasoning?",
+                        options: ["Not comfortable at all", "Somewhat comfortable", "Comfortable", "Very comfortable", "Extremely comfortable"]
+                    },
+                    {
+                        section: "Language of Schooling",
+                        question: "How well do you understand written texts?",
+                        options: ["I struggle to understand written texts.", "I can understand simple texts with some effort.", "I understand most texts with ease.", "I can understand complex texts with minimal effort.", "I can quickly and easily understand complex written information."]
+                    },
+                    {
+                        section: "Natural Sciences",
+                        question: "How effectively can you question and examine scientific phenomena?",
+                        options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."]
+                    },
+                    {
+                        section: "Foreign Languages",
+                        question: "How effectively can you understand spoken foreign languages?",
+                        options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."]
+                    }
                 ],
                 feedback: {
                     low: "Needs improvement",
@@ -39,10 +60,30 @@
                 title: "Quiz de compétences commerciales",
                 questions: [
                     {
+                        section: "Mathématiques",
                         question: "À quel point êtes-vous à l'aise avec l'arithmétique de base ?",
                         options: ["Pas du tout à l'aise", "Un peu à l'aise", "À l'aise", "Très à l'aise", "Extrêmement à l'aise"]
                     },
-                    // Ajoutez plus de questions ici
+                    {
+                        section: "Mathématiques",
+                        question: "À quel point êtes-vous à l'aise avec la raison spatiale ?",
+                        options: ["Pas du tout à l'aise", "Un peu à l'aise", "À l'aise", "Très à l'aise", "Extrêmement à l'aise"]
+                    },
+                    {
+                        section: "Langue de scolarisation",
+                        question: "À quel point comprenez-vous bien les textes écrits ?",
+                        options: ["Je peine à comprendre les textes écrits.", "Je peux comprendre les textes simples avec un peu d'effort.", "Je comprends la plupart des textes avec facilité.", "Je peux comprendre les textes complexes avec un minimum d'effort.", "Je peux rapidement et facilement comprendre des informations écrites complexes."]
+                    },
+                    {
+                        section: "Sciences naturelles",
+                        question: "À quel point pouvez-vous interroger et examiner des phénomènes scientifiques ?",
+                        options: ["Pas du tout efficace.", "Légèrement efficace.", "Modérément efficace.", "Très efficace.", "Extrêmement efficace."]
+                    },
+                    {
+                        section: "Langues étrangères",
+                        question: "À quel point comprenez-vous bien les langues étrangères parlées ?",
+                        options: ["Pas du tout efficace.", "Légèrement efficace.", "Modérément efficace.", "Très efficace.", "Extrêmement efficace."]
+                    }
                 ],
                 feedback: {
                     low: "Nécessite une amélioration",
@@ -56,8 +97,17 @@
             const quizContainer = document.getElementById('quiz');
             quizContainer.innerHTML = `<h1>${translations[currentLanguage].title}</h1>`;
 
+            let currentSection = null;
+
             translations[currentLanguage].questions.forEach((q, index) => {
+                if (q.section !== currentSection) {
+                    currentSection = q.section;
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.innerHTML = `<h2>${q.section}</h2>`;
+                    quizContainer.appendChild(sectionDiv);
+                }
                 const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
                 questionDiv.innerHTML = `
                     <p>${index + 1}. ${q.question}</p>
                     ${q.options.map((option, i) => `
