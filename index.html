@@ -3,256 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commerce Skills Self-Assessment Quiz</title>
+    <title>Quiz bilingue</title>
     <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-        h1 { color: #333; }
-        .question { margin-bottom: 20px; border: 1px solid #ddd; padding: 10px; }
-        .question p { font-weight: bold; }
-        .options label { display: block; margin-bottom: 5px; }
-        .options input[type="radio"] { margin-right: 5px; }
-        button { background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
-        button:hover { background-color: #3e8e41; }
-        #results { margin-top: 30px; border: 1px solid #ddd; padding: 15px; }
-        #results h2 { color: #333; }
-        .feedback { margin-top: 10px; font-style: italic; color: #555; }
-        .section { margin-top: 20px; border: 1px solid #ddd; padding: 10px; }
-        .section h2 { color: #333; }
+        button { margin-top: 20px; }
     </style>
 </head>
 <body>
 
-    <h1>Commerce Skills Self-Assessment Quiz</h1>
+    <button onclick="switchLanguage('fr')">Français</button>
+    <button onclick="switchLanguage('en')">English</button>
 
-    <div id="quiz">
-        <!-- Quiz questions will be inserted here by JavaScript -->
-    </div>
-
-    <button onclick="calculateScore()">Submit</button>
-
-    <div id="results">
-        <!-- Results and feedback will be displayed here -->
-    </div>
+    <div id="quiz"></div>
 
     <script>
-        const questions = [
-            {
-                section: "Mathematics",
-                question: "How comfortable are you with basic arithmetic (addition, subtraction, multiplication, division), percentages, and fractions?",
-                options: ["Not comfortable at all", "Somewhat comfortable", "Comfortable", "Very comfortable", "Extremely comfortable"],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-			{
-                section: "Mathematics",
-                question: "How comfortable are you with spatial reasoning.?",
-                options: ["Not comfortable at all", "Somewhat comfortable", "Comfortable", "Very comfortable", "Extremely comfortable"],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-            {
-                section: "Mathematics",
-                question: "How comfortable are you with calculating surfaces, volumes, and converting units of measure (e.g., meters to centimeters)?",
-                options: ["Not comfortable at all", "Somewhat comfortable", "Comfortable", "Very comfortable", "Extremely comfortable"],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-            {
-                section: "Language of Schooling",
-                question: "How well do you understand written texts, such as articles, reports, and instructions?",
-                options: ["I struggle to understand written texts.", "I can understand simple texts with some effort.", "I understand most texts with ease.", "I can understand complex texts with minimal effort.", "I can quickly and easily understand complex written information."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-            {
-                section: "Language of Schooling",
-                question: "How well do you understand spoken language in a school or professional setting?",
-                options: ["I struggle to understand spoken language.", "I can understand simple spoken language with some effort.", "I understand most spoken language with ease.", "I can understand complex spoken language with minimal effort.", "I can quickly and easily understand complex spoken language."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-            {
-                section: "Language of Schooling",
-                question: "How well can you write clear and grammatically correct texts, such as emails, reports, and essays?",
-                options: ["I struggle to write clear texts.", "I can write simple texts with some effort.", "I write most texts with ease.", "I can write complex texts with minimal effort.", "I can quickly and easily write complex texts."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-             {
-                section: "Language of Schooling",
-                question: "How effective are you in participating in discussions?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-             {
-                section: "Language of Schooling",
-                question: "How effectively can you express yourself orally?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-            {
-                section: "Natural Sciences",
-                question: "How effectively can you question and examine scientific phenomena?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-            {
-                section: "Natural Sciences",
-                question: "How effectively can you exploit information from scientific sources?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-            {
-                section: "Natural Sciences",
-                question: "How effectively can you classify, structure, and model scientific data?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-            {
-                section: "Natural Sciences",
-                question: "How effectively can you appreciate and evaluate scientific findings?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-            {
-                section: "Natural Sciences",
-                question: "How effectively can you develop and transpose scientific concepts?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-             {
-                section: "Natural Sciences",
-                question: "How effectively can you communicate and exchange scientific ideas?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-            {
-                section: "Foreign Languages",
-                question: "How effectively can you understand spoken foreign languages?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-            {
-                section: "Foreign Languages",
-                question: "How effectively can you understand written foreign languages?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-             {
-                section: "Foreign Languages",
-                question: "How effectively can you participate in foreign language conversations?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-             {
-                section: "Foreign Languages",
-                question: "How effectively can you express yourself orally in foreign languages?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            },
-            {
-                section: "Foreign Languages",
-                question: "How effectively can you express yourself in writing in foreign languages?",
-                options: ["Not effective at all.", "Slightly effective.", "Moderately effective.", "Very effective.", "Extremely effective."],
-                scoreValues: [1, 2, 3, 4, 5]
-            }
+        let currentLanguage = 'en'; // Langue par défaut
 
-        ];
+        const translations = {
+            en: {
+                title: "Commerce Skills Quiz",
+                questions: [
+                    {
+                        question: "How comfortable are you with basic arithmetic?",
+                        options: ["Not comfortable at all", "Somewhat comfortable", "Comfortable", "Very comfortable", "Extremely comfortable"]
+                    },
+                    // Ajoutez plus de questions ici
+                ],
+                feedback: {
+                    low: "Needs improvement",
+                    medium: "Good",
+                    high: "Excellent"
+                }
+            },
+            fr: {
+                title: "Quiz de compétences commerciales",
+                questions: [
+                    {
+                        question: "À quel point êtes-vous à l'aise avec l'arithmétique de base ?",
+                        options: ["Pas du tout à l'aise", "Un peu à l'aise", "À l'aise", "Très à l'aise", "Extrêmement à l'aise"]
+                    },
+                    // Ajoutez plus de questions ici
+                ],
+                feedback: {
+                    low: "Nécessite une amélioration",
+                    medium: "Bien",
+                    high: "Excellent"
+                }
+            }
+        };
 
         function renderQuiz() {
             const quizContainer = document.getElementById('quiz');
-            let currentSection = null;
+            quizContainer.innerHTML = `<h1>${translations[currentLanguage].title}</h1>`;
 
-            questions.forEach((q, index) => {
-                if (q.section !== currentSection) {
-                    currentSection = q.section;
-                    const sectionDiv = document.createElement('div');
-                    sectionDiv.className = 'section';
-                    sectionDiv.innerHTML = `<h2>${currentSection}</h2>`;
-                    quizContainer.appendChild(sectionDiv);
-                }
+            translations[currentLanguage].questions.forEach((q, index) => {
                 const questionDiv = document.createElement('div');
-                questionDiv.className = 'question';
                 questionDiv.innerHTML = `
                     <p>${index + 1}. ${q.question}</p>
-                    <div class="options">
-                        ${q.options.map((option, i) => `
-                            <label>
-                                <input type="radio" name="q${index}" value="${q.scoreValues[i]}">
-                                ${option}
-                            </label>
-                        `).join('')}
-                    </div>
+                    ${q.options.map((option, i) => `
+                        <div>
+                            <input type="radio" name="q${index}" value="${i + 1}">
+                            ${option}
+                        </div>
+                    `).join('')}
                 `;
                 quizContainer.appendChild(questionDiv);
             });
         }
 
-        function calculateScore() {
-            let sectionScores = {};
-            questions.forEach((q, index) => {
-                const selected = document.querySelector(`input[name="q${index}"]:checked`);
-                if (selected) {
-                    const score = parseInt(selected.value);
-                    if (!sectionScores[q.section]) {
-                        sectionScores[q.section] = 0;
-                    }
-                    sectionScores[q.section] += score;
-                }
-            });
-
-            displayResults(sectionScores);
-        }
-
-         function displayResults(sectionScores) {
-            const resultsContainer = document.getElementById('results');
-            resultsContainer.innerHTML = '<h2>Results:</h2>';
-
-            for (const section in sectionScores) {
-                const score = sectionScores[section];
-                const resultDiv = document.createElement('div');
-                resultDiv.innerHTML = `<h3>${section}: ${score}</h3><p class="feedback">${getFeedback(section, score)}</p>`;
-                resultsContainer.appendChild(resultDiv);
-            }
-        }
-
-        function getFeedback(section, score) {
-            let feedback = "";
-            switch (section) {
-                case "Mathematics":
-                    if (score <= 10) {
-                        feedback = "Focus on improving basic arithmetic and algebra skills.";
-                    } else if (score <= 15) {
-                        feedback = "Practice more complex mathematical problems and geometry.";
-                    } else {
-                        feedback = "Consider advanced mathematics courses or applications in commerce.";
-                    }
-                    break;
-                case "Language of Schooling":
-                    if (score <= 10) {
-                        feedback = "Work on improving reading comprehension and writing skills.";
-                    } else if (score <= 15) {
-                        feedback = "Practice more complex communication tasks and public speaking.";
-                    } else {
-                        feedback = "Consider advanced language courses or professional writing workshops.";
-                    }
-                    break;
-                case "Natural Sciences":
-                    if (score <= 10) {
-                        feedback = "Focus on understanding scientific concepts and methods.";
-                    } else if (score <= 15) {
-                        feedback = "Practice analyzing scientific data and interpreting results.";
-                    } else {
-                        feedback = "Consider advanced science courses or research opportunities.";
-                    }
-                    break;
-                case "Foreign Languages":
-                    if (score <= 10) {
-                        feedback = "Work on improving basic vocabulary and grammar skills.";
-                    } else if (score <= 15) {
-                        feedback = "Practice speaking and writing in foreign languages.";
-                    } else {
-                        feedback = "Consider advanced language courses or immersion programs.";
-                    }
-                    break;
-                default:
-                    feedback = "No specific feedback available.";
-            }
-            return feedback;
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            renderQuiz();
         }
 
         renderQuiz();
