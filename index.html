@@ -17,6 +17,8 @@
 
     <div id="quiz"></div>
 
+    <button onclick="calculateScore()">Submit</button>
+
     <script>
         let currentLanguage = 'en'; // Langue par défaut
 
@@ -119,6 +121,11 @@
                 `;
                 quizContainer.appendChild(questionDiv);
             });
+        }
+
+          function calculateScore() {
+          // Add your scoring logic here
+          alert("Score will be calculated here");
         }
 
         function switchLanguage(lang) {
